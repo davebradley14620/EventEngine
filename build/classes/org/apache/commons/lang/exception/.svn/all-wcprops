@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception
+END
+NestableException.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception/NestableException.java
+END
+Nestable.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception/Nestable.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception/package.html
+END
+ExceptionUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception/ExceptionUtils.java
+END
+NestableRuntimeException.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception/NestableRuntimeException.java
+END
+NestableError.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception/NestableError.java
+END
+NestableDelegate.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/exception/NestableDelegate.java
+END

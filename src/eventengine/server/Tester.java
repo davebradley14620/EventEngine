@@ -1,0 +1,263 @@
+package eventengine.server;
+
+import java.io.StringReader;
+import java.net.URI;
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
+import com.sun.jersey.api.representation.Form;
+
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+
+public class Tester {
+	static String _url = "http://localhost:8080/EventEngine";
+	public static void main(String[] args) {
+		
+		if ( args.length > 0 ) {
+			_url = args[0];
+			try {
+				URL url = new URL(_url);
+			} catch( MalformedURLException e ) {
+				System.err.println("Invalid URL format: "+_url);
+				System.exit(-1);
+			}
+		}
+		ClientConfig config = new DefaultClientConfig();
+		// Only for JSON.  Comment this out for XML.
+		config.getClasses().add(JacksonJsonProvider.class);
+		Client client = Client.create(config);
+		WebResource service = client.resource(getBaseURI());
+		
+		//
+		// Create a user.
+		//
+		System.out.println("TEST 1 - Create a User\n------------------------");
+		String username = "johndoe"+Math.random();
+		String email = username+"@johndoe.com";
+		Location loc1 = new Location( 41.256410, -74.359969, "United States", "1 Main Street", "Warwick", "NY", "10990" );
+//		User user = new User(0, new Date(), "John", "Doe", username, loc1, null, email, true, 0 );
+		User user = new User(0, username, "John", "Doe", loc1, "johndoefb", email, new Date(), null, true, 0 );
+
+		
+		String userId1 = (new Integer(user.getId())).toString();
+//		ClientResponse response1 = service.path("rest").path("users").path("get")
+//			.path(userId1).accept(MediaType.APPLICATION_JSON)
+//			.put(ClientResponse.class, user);
+//		// Return code should be 201 == created resource
+//		System.out.println(response1.getStatus());
+//		assert(response1.getStatus()==201);
+		User user1 = service.path("rest").path("users").path("get")
+			.path(userId1).accept(MediaType.APPLICATION_JSON)
+			.put(User.class, user);
+		assert( user1 != null );
+		System.out.println(user1);
+		
+		// 
+		// Create an event.  Notice that we use event ID 0.   0 or less indicates a newly created event.
+		// If we were to specify an event ID greater than 0, then it would attempt to update the event with
+		// the given ID.
+		//
+		System.out.println("TEST 2 - Create an Event\n------------------------");
+		Location loc2 = new Location( 41.2221073, -74.2847207, "United States", "40 Pinehill Drive", "Greenwood Lake", "NY", "10925" );
+		List<Category> cats = new Vector<Category>(0);
+		Event event = new Event(0, "Event 1", "This is event 1", new Date(), 0, new Date(), 120, false, null, loc2, cats, 2);
+		String eventId1 = (new Integer(event.getId())).toString();
+//		ClientResponse response2 = service.path("rest").path("events").path("get")
+//			.path(eventId1).accept(MediaType.APPLICATION_JSON)
+//			.put(ClientResponse.class, event);
+//		// Return code should be 201 == created resource
+//		System.out.println(response2.getStatus());
+//		assert(response2.getStatus()==201);
+		Event result2 = service.path("rest").path("events").path("get")
+			.path(eventId1).accept(MediaType.APPLICATION_JSON)
+			.put(Event.class, event);
+		assert( result2 != null );
+		System.out.println(result2);
+
+		//
+		// Get the event we just created.
+		//
+		System.out.println("TEST 3 - Get the Event\n------------------------");
+		Event result3 = service.path("rest").path("events/get/"+result2.getId())
+			.accept(MediaType.APPLICATION_JSON).get(Event.class);
+//			Event event3 = unmarshalEvent(result3);
+		assert( result3 != null );
+		System.out.println(result3);
+//		assert( result2.equals(result3) );
+
+		//
+		// Have our new user join our newly created event.
+		//
+		System.out.println("TEST 4 - Join Event "+result3.getId()+" by user "+user1.getId()+"\n------------------------");
+		Event result4 = service.path("rest").path("events/join/"+result3.getId()+"/"+user1.getId())
+			.accept(MediaType.APPLICATION_JSON).get(Event.class);	
+		assert( result4 != null );
+		System.out.println(result4);
+		
+		//
+		// Now get a list of events in a particular geographic location.   NOTE: You should have some events in there within a 30 mile
+		// radius of this location, otherwise the result will be empty.
+		// TBD
+		//
+		//http://localhost:8080/EventEngine/rest/events/get/41.335329/-74.187698/40/true/0/%22%22/0/20
+		// Get XML for application  events/get/41.335329/-74.187698/40/true/0/0/20/6
+		// XXX - need to code for APPLICATION_JSON, but this isn't working for some reason.
+		System.out.println("TEST 5 - Get Events in geographical area\n------------------------");
+		List<Event> result5 = service.path("rest").path("events/search/41.335329/-74.187698/40/true/0/0/0/0/20/event 6")
+					.accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Event>>(){});
+		assert( (result5 != null) && (result5.size() > 0) );
+		Iterator<Event> it = result5.iterator();
+		while( it.hasNext() ) {
+			Event e = it.next();
+			System.out.println("\tresult5: "+e);
+		}
+
+		System.out.println("TEST 6 - Delete event "+result4.getId()+"\n------------------------");
+		String result6 = service.path("rest").path("events/get/"+result4.getId())
+			.accept(MediaType.APPLICATION_JSON).delete(String.class);	
+		System.out.println(result6);
+
+		System.out.println("TEST 7 - Delete user "+result4.getId()+"\n------------------------");
+		String result7 = service.path("rest").path("users/get/"+user.getId())
+			.accept(MediaType.APPLICATION_JSON).delete(String.class);	
+		System.out.println(result7);
+		
+//	    MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+//	    params.add("id", new Integer(event.getId()).toString());
+//	    params.add("name", event.getName());
+//	    params.add("description", event.getDescription());
+//	    String starttime = "";
+//	    if ( event.getStartTime() != null ) {
+//	    	Date st = event.getStartTime();
+//	    	int yr = st.getYear() + 1900;
+//	    	int mon = st.getMonth() + 1;
+//	    	int dom = st.getDate();
+//	    	int hr = st.getHours();
+//	    	int min = st.getMinutes();
+//	    	starttime = yr+"."+mon+"."+dom+"."+hr+"."+min;
+/////	    	starttime = new Long(event.getStartTime().getTime()).toString();
+//	    }
+//	    params.add("start", starttime);
+//	    params.add("duration", new Integer(event.getDurationMinutes()).toString());
+//	    String isrepeating = new Boolean(event.getIsRepeating()).toString();
+//	    params.add("isrepeating", isrepeating);
+//	    String cycle = "";
+//	    if ( event.getRepeatCycle() != null ) {
+//	    	cycle = event.getRepeatCycle().toString();
+//	    }
+//	    params.add("cycle",cycle);
+//	    String address = "";
+//	    String city = "";
+//	    String state = "";
+//	    String zip = "";
+//	    double lat = 0.;
+//	    double lon = 0.;
+//	    if ( event.getLocation() != null ) {
+//	    	Location loc = event.getLocation();
+//	    	address = loc.getAddress();
+//	    	city = loc.getCity();
+//	    	state = loc.getState();
+//	    	zip = loc.getZip();
+//	    	lat = loc.getLatitude();
+//	    	lon = loc.getLongitude();
+//	    }
+//	    params.add("address", address);
+//	    params.add("city", city);
+//	    params.add("state", state);
+//	    params.add("zip", zip);
+//	    params.add("lat", new Double(lat).toString());
+//	    params.add("lon", new Double(lon).toString());
+//	    String resp = service.path("rest").path("events").
+//	        queryParams(params).
+//	        post(String.class);
+//System.err.println("response = "+resp);
+//	    ClientResponse response = webResource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(ClientResponse.class, params);
+//		ClientResponse response = service.path("rest").path("events")
+//			.path(eventId2).accept(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
+//			.put(ClientResponse.class, params);
+		/*
+				@FormParam("id") String id,
+				@FormParam("name") String name,
+				@FormParam("description") String description,
+				@FormParam("start") String start,
+				@FormParam("duration") Integer duration,
+				@FormParam("isrepeating") String isrepeating,
+				@FormParam("cycle") String cycle,
+				@FormParam("address") String address,
+				@FormParam("city") String city,
+				@FormParam("state") String state,
+				@FormParam("zip") String zip,
+				@FormParam("lat") String lat,
+				@FormParam("lon") String lon,
+		*/
+
+		// Get the Events
+//		System.out.println(service.path("rest").path("events")
+//				.accept(MediaType.TEXT_XML).get(String.class));
+		
+		// Get JSON for application
+//		System.out.println(service.path("rest").path("events")
+//				.accept(MediaType.APPLICATION_JSON).get(String.class));
+		// Get XML for application
+//		System.out.println(service.path("rest").path("events")
+//				.accept(MediaType.APPLICATION_JSON).get(String.class));
+/*
+		// Get the Event with id 1
+		System.out.println(service.path("rest").path("events/1")
+				.accept(MediaType.APPLICATION_JSON).get(String.class));
+		// get Event with id 1
+		service.path("rest").path("events/1").delete();
+		// Get the all events, id 1 should be deleted
+		System.out.println(service.path("rest").path("events")
+				.accept(MediaType.APPLICATION_JSON).get(String.class));
+
+		// Create a Event
+		Form form = new Form();
+		form.add("id", "4");
+		form.add("summary", "Demonstration of the client lib for forms");
+		response = service.path("rest").path("events")
+				.type(MediaType.APPLICATION_FORM_URLENCODED)
+				.post(ClientResponse.class, form);
+		System.out.println("Form response " + response.getEntity(String.class));
+		// Get the all events, id 4 should be created
+		System.out.println(service.path("rest").path("events")
+				.accept(MediaType.APPLICATION_JSON).get(String.class));
+*/
+	}
+
+	private static URI getBaseURI() {
+		return UriBuilder.fromUri(_url).build();
+	}
+	
+	private static Event unmarshalEvent( String pXML )
+		throws JAXBException
+	{
+	    JAXBContext context = JAXBContext.newInstance(Event.class);
+	    Unmarshaller um = context.createUnmarshaller();
+	    Event event = (Event) um.unmarshal(new StreamSource( new StringReader( pXML ) ) );
+	    return( event );
+	}
+} 

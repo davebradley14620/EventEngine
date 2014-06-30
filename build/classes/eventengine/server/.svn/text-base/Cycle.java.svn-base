@@ -1,0 +1,13 @@
+package eventengine.server;
+
+/**
+ * Possible cycle values for repeating events.
+ * @author db
+ *
+ */
+public enum Cycle {
+	DAILY,
+	WEEKLY,
+	MONTHLY,
+	YEARLY
+}

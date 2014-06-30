@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/eventengine/!svn/ver/3/server/trunk/sql
+END
+schema.sql
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/eventengine/!svn/ver/3/server/trunk/sql/schema.sql
+END
+schema_09222012.sql
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/eventengine/!svn/ver/3/server/trunk/sql/schema_09222012.sql
+END
+schema_08242012.sql
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/eventengine/!svn/ver/3/server/trunk/sql/schema_08242012.sql
+END
+categories.sql
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/eventengine/!svn/ver/3/server/trunk/sql/categories.sql
+END
+event2users.sql
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/eventengine/!svn/ver/3/server/trunk/sql/event2users.sql
+END
+user2friends.sql
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/eventengine/!svn/ver/3/server/trunk/sql/user2friends.sql
+END

@@ -1,0 +1,128 @@
+/**
+ * 
+ */
+package eventengine.server;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import javax.xml.bind.JAXBElement;
+import java.sql.SQLException;
+import com.sun.jersey.api.NotFoundException;
+
+/**
+ * @author db
+ *
+ */
+//Will map the resource to the URL Events
+public class UserResource {
+	@Context
+	UriInfo uriInfo;
+	@Context
+	Request request;
+	
+	public UserResource(UriInfo uriInfo, Request request, int pId) {
+		this.uriInfo = uriInfo;
+		this.request = request;
+		this.mId = pId;
+	}
+	
+	public UserResource(UriInfo uriInfo, Request request, User user ) {
+		this(uriInfo,request,user.getId());
+		this.mUser = user;
+	}
+	
+	//Application integration 		
+	@GET
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public User getUser() {
+		if ( this.mUser != null ) {
+			return( this.mUser );
+		}
+		if ( this.mId > 0 ) {
+			try {
+				this.mUser = Model.instance.getUserById(this.mId);
+			} catch( SQLException e ) {
+				throw new RuntimeException("UserResource.Get: "+e.getMessage());
+			}
+		}
+
+		if ( this.mUser == null ) {
+			//throw new RuntimeException("UserResource.Get: User with " + id +  " not found");
+			throw new NotFoundException("User with id " + this.mId +  " not found");
+		}
+
+		return ( this.mUser );
+	}
+	
+//	// For the browser
+//	@GET
+//	@Produces(MediaType.TEXT_XML)
+//	public User getUserHTML() {
+//		return( _getUser() );
+//	}
+	
+	@PUT
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//	public Response putUser(JAXBElement<User> User) {
+	public User putUser(JAXBElement<User> user) {
+		User ret = null;
+		User c = user.getValue();
+//		return putAndGetResponse(c);
+		Response res = Response.created(uriInfo.getAbsolutePath()).build();
+		try {
+			ret = Model.instance.updateUser(c);
+		} catch( SQLException e ) {
+			Utility.getLogger().error("UserResource.putAndGetResponse: "+e.getMessage());
+			e.printStackTrace(System.err);
+			res = Response.noContent().build();
+		}
+//		return res;	
+		return( ret );
+
+	}
+	
+	@DELETE
+	public Response deleteUser() {
+		Response res = Response.created(this.uriInfo.getAbsolutePath()).build();
+
+		int id = this.mId;
+		if ( (id == -1 ) && (this.mUser != null) ) {
+			id = this.mUser.getId();
+		}
+		if ( id != -1 ) {
+			try {
+				Model.instance.removeUser(id);
+			} catch( SQLException e ) {
+				Utility.getLogger().error("Error deleting user with id: "+id+": "+e.getMessage());
+				e.printStackTrace(System.err);
+				res = Response.noContent().build();			
+			}
+		}	
+		return( res );
+	}
+	
+	private Response putAndGetResponse(User user) {
+		Response res = Response.created(this.uriInfo.getAbsolutePath()).build();
+		try {
+			Model.instance.updateUser(user);
+		} catch( SQLException e ) {
+			//throw new RuntimeException("UserResource.putAndGetResponse: "+e.getMessage());
+			Utility.getLogger().error("UserResource.putAndGetResponse: "+e.getMessage());
+			e.printStackTrace(System.err);
+			res = Response.noContent().build();
+		}
+		return res;
+	}
+	
+	private int mId = -1;
+	private User mUser;
+}

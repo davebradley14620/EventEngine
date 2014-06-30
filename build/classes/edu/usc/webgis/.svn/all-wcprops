@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis
+END
+TieHandlingStrategyType.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/TieHandlingStrategyType.java
+END
+GeocoderService_V02_95.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/GeocoderService_V02_95.java
+END
+FeatureMatchingSelectionMethod.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/FeatureMatchingSelectionMethod.java
+END
+GeocoderService_V02_95SoapStub.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/GeocoderService_V02_95SoapStub.java
+END
+FeatureMatchingGeographyType.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/FeatureMatchingGeographyType.java
+END
+GeocoderService_V02_95Soap.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/GeocoderService_V02_95Soap.java
+END
+GeocodeQualityType.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/GeocodeQualityType.java
+END
+GeocoderService_V02_95Locator.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/GeocoderService_V02_95Locator.java
+END
+GeocoderService_V02_95SoapProxy.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/GeocoderService_V02_95SoapProxy.java
+END
+InterpolationSubType.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/InterpolationSubType.java
+END
+WebServiceGeocodeResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/WebServiceGeocodeResult.java
+END
+QueryStatusCodes.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/QueryStatusCodes.java
+END
+InterpolationType.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/eventengine/!svn/ver/4/server/trunk/src/edu/usc/webgis/InterpolationType.java
+END

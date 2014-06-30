@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math
+END
+JVMRandom.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/JVMRandom.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/package.html
+END
+RandomUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/RandomUtils.java
+END
+FloatRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/FloatRange.java
+END
+Fraction.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/Fraction.java
+END
+NumberRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/NumberRange.java
+END
+DoubleRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/DoubleRange.java
+END
+IntRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/IntRange.java
+END
+NumberUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/NumberUtils.java
+END
+IEEE754rUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/IEEE754rUtils.java
+END
+LongRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/LongRange.java
+END
+Range.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/math/Range.java
+END

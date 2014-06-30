@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder
+END
+HashCodeBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/HashCodeBuilder.java
+END
+IDKey.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/IDKey.java
+END
+ToStringStyle.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/ToStringStyle.java
+END
+ReflectionToStringBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/ReflectionToStringBuilder.java
+END
+StandardToStringStyle.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/StandardToStringStyle.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/package.html
+END
+CompareToBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/CompareToBuilder.java
+END
+ToStringBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/ToStringBuilder.java
+END
+EqualsBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/eventengine/!svn/ver/4/server/trunk/src/org/apache/commons/lang/builder/EqualsBuilder.java
+END

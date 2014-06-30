@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>EventEngine</display-name>
+    <servlet>
+    <description>Initialize HooRate environment</description>
+    <display-name>InitializerServlet</display-name>
+    <servlet-name>InitializerServlet</servlet-name>
+    <servlet-class>eventengine.server.InitializerServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InitializerServlet</servlet-name>
+    <url-pattern>/InitializerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>eventengine.server</param-value>
+    </init-param>
+    <init-param>
+      <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>log4j-init</servlet-name>
+    <servlet-class>eventengine.server.Log4jInit</servlet-class>
+
+    <init-param>
+      <param-name>log4j-init-file</param-name>
+      <param-value>WEB-INF/lib/log4j.lcf</param-value>
+    </init-param>
+
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  
+  <resource-ref>
+      <description>DB Connection</description>
+      <res-ref-name>jdbc/EventEngine</res-ref-name>
+      <res-type>javax.sql.DataSource</res-type>
+      <res-auth>Container</res-auth>
+  </resource-ref>
+  <context-param>
+    <param-name>GeocoderClass</param-name>
+    <param-value>com.hoorate.GoogleGeocoderImpl</param-value>
+  </context-param>
+  <context-param>
+    <param-name>GeoIPClass</param-name>
+    <param-value>com.hoorate.MaxMindGeocoderImpl</param-value>
+  </context-param>
+  <context-param>
+    <param-name>geocoder.usc.key</param-name>
+    <param-value>2adcf4e24c334bb39c78f52dda12ecc5</param-value>
+  </context-param>
+  <context-param>
+    <param-name>geocoder.usc.version</param-name>
+    <param-value>2.95</param-value>
+  </context-param>
+  <context-param>
+    <param-name>geocoder.google.url</param-name>
+    <param-value>http://maps.googleapis.com/maps/api/geocode/xml?sensor=false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>geocoder.maxmind.url</param-name>
+    <param-value>http://geoip-us-east.maxmind.com/b?l=3T6QOberDdDA</param-value>
+  </context-param>
+</web-app> 
